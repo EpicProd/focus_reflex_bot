@@ -1,0 +1,36 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+  },
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "editor.formatOnSave": false,
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnPaste": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
+  "black-formatter.args": [
+    "--line-length=79"
+  ],
+  "black-formatter.importStrategy": "fromEnvironment",
+  "isort.args": [
+    "--profile",
+    "black",
+    "--line-length=79"
+  ],
+  "isort.importStrategy": "fromEnvironment",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.formatting.provider": "black",
+  "python.defaultInterpreterPath": "/usr/bin/python3",
+  "python.languageServer": "Pylance",
+  "python.linting.pycodestyleEnabled": true,
+  "python.linting.pycodestyleArgs": [
+    "--max-line-length=79",
+    "--ignore=E251,W504,W503,E501,E402"
+  ],
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportGeneralTypeIssues": "none"
+  }
+}

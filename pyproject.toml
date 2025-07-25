@@ -1,0 +1,110 @@
+[tool.poetry]
+name = "bot_template"
+version = "2.0.0"
+description = "An ultimate, convenient and fast way to start developing a bot in a matter of seconds without copying code from other projects."
+authors = ["rf0x3d <yarekfrolov@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+loguru = "^0.6.0"
+aiogram = "^3.0.0"
+aiohttp = { extras = ["speedups"], version = "^3.8.3" }
+charset-normalizer = ">=2.0,<3.0"
+aiodns = "^3.0.0"
+requests = "^2.28.2"
+nest-asyncio = "^1.5.6"
+cachetools = "^4.2.4"
+toml = "^0.10.2"
+validators = "^0.20.0"
+orjson = "3.8.10"
+black = "^23.3.0"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pycodestyle = "^2.8.0"
+isort = "^5.10.1"
+black = "^23.3.0"
+pre-commit = "^3.3.1"
+pytest = "^7.2.0"
+pytest-mock = "^3.10.0"
+pylint = "^2.15.9"
+pytest-asyncio = "^0.20.3"
+pytest-cov = "^4.0.0"
+
+[tool.poetry.group.uvloop]
+optional = true
+
+[tool.poetry.group.uvloop.dependencies]
+uvloop = "^0.19.0"
+
+[tool.poetry.group.sentry]
+optional = true
+
+[tool.poetry.group.sentry.dependencies]
+sentry-sdk = "^1.5.12"
+
+[tool.poetry.group.redis]
+optional = true
+
+[tool.poetry.group.redis.dependencies]
+redis = {extras = ["hiredis"], version = "^5.0.1"}
+
+[tool.poetry.group.keyboards]
+optional = true
+
+[tool.poetry.group.keyboards.dependencies]
+SQLAlchemy = "^2.0.0"
+aiosqlite = "^0.17.0"
+greenlet = "^1.1.2"
+babel = "^2.12.1"
+
+[tool.poetry.group.database]
+optional = true
+
+[tool.poetry.group.database.dependencies]
+SQLAlchemy = "^2.0.0"
+asyncpg = "^0.29.0"
+greenlet = "^1.1.2"
+alembic = "^1.10.2"
+psycopg = { extras = ["binary", "pool"], version = "^3.1.8" }
+
+[tool.poetry.group.scheduler]
+optional = true
+
+[tool.poetry.group.scheduler.dependencies]
+SQLAlchemy = "^2.0.0"
+apscheduler = "^3.9.1.post1"
+
+[tool.poetry.group.windows]
+optional = true
+
+[tool.poetry.group.windows.dependencies]
+pywin32 = "^306"
+
+[tool.poetry.group.sulguk-parsemode]
+optional = true
+
+[tool.poetry.group.sulguk-parsemode.dependencies]
+sulguk = "^0.5.0"
+
+[build-system]
+requires = ["poetry-core>=1.4.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+log_cli = false
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+addopts = "-rsxX -l --tb=short"
+xfail_strict = true
+
+[tool.isort]
+profile = "black"
+known_first_party = "poetry"
+
+[tool.black]
+line-length = 79
+target-version = ['py310']
