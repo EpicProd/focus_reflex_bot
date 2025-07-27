@@ -12,7 +12,7 @@ from aiogram.types import (
     ReplyKeyboardMarkup,
 )
 
-from bot_template import keyboards  # pylint: disable=import-error
+from focus_reflex import keyboards  # pylint: disable=import-error
 
 
 class TestKeyboards:
