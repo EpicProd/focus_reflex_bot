@@ -59,6 +59,7 @@ async def help_handler(message: types.Message):
         "<b>Дни недели</b>: можно выбрать выбрать дни, в которые вопросы будут приходить (если ячейка выделена белым, то день недели активен).\n\n"
         "<b>P.S.</b>\n"
         "Этот бот НЕ читает ваши личные каналы и не сохраняет ваши личные данные и/или сообщения. Вообще никакие и нигде. Вот исходный код бота, можете проверить, если разбираетесь: <a href='https://github.com/EpicProd/focus_reflex_bot'>Открыть</a>",
+        disable_web_page_preview=True
     )
 
 @dp.message(Command("stop"), F.chat.type == ChatType.PRIVATE)
