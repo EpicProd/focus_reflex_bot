@@ -1,4 +1,4 @@
-FROM python:3.10-slim-buster
+FROM python:3.11-slim-buster
 
 ARG ENV
 
@@ -9,7 +9,7 @@ ENV ENV=${ENV} \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_VERSION=1.5.0 \
+    POETRY_VERSION=2.1.3 \
     TZ="Europe/Moscow"
 
 RUN pip install "poetry==$POETRY_VERSION"
@@ -30,4 +30,4 @@ COPY . /app
 
 STOPSIGNAL SIGINT
 
-ENTRYPOINT [ "poetry", "run", "python3", "-m", "bot_template" ]
+ENTRYPOINT [ "poetry", "run", "python3", "-m", "focus_reflex" ]
