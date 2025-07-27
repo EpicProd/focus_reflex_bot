@@ -30,7 +30,7 @@ class DatabaseInjectorMiddleware(BaseMiddleware):
             async with db.Session() as session:
                 data["session"] = session
                 await handler(event, data)
-                logger.debug(data)
+                # logger.debug(data)
         else:
             return await handler(event, data)
 
