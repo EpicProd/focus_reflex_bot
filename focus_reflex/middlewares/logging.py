@@ -28,7 +28,7 @@ class LogMiddleware(BaseMiddleware):
         # print(event.model_dump_json())
         match type(event).__name__:
             case "Message":
-                if event.chat.type == "private" and event.message.text.startswith("/"): # type: ignore
+                if event.chat.type == "private" and event.text.startswith("/"): # type: ignore
                     logger.info(
                         f"MESSAGE | user_id: {event.from_user.id} (name: {event.from_user.full_name} "  # type: ignore
                         f"| username: {event.from_user.username} | locale: {event.from_user.language_code}"  # type: ignore
