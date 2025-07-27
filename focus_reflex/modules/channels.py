@@ -37,7 +37,7 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
                 # Отправляем уведомление об отвязке
                 try:
                     keyboard = InlineKeyboard(ButtonRow(
-                        WebAppButton("Открыть мини-приложение", "https://focus-reflex-test.neonteam.cc/")
+                        WebAppButton("Открыть настройки", "https://focus-reflex.neonteam.cc/")
                     ))
                     await my_chat_member.bot.send_message(
                         chat_id=user.user_id,
@@ -84,7 +84,7 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
             # Отправляем уведомление в ЛС пользователю
             try:
                 keyboard = InlineKeyboard(ButtonRow(
-                    WebAppButton("Открыть мини-приложение", "https://focus-reflex-test.neonteam.cc/")
+                    WebAppButton("Открыть настройки", "https://focus-reflex.neonteam.cc/")
                 ))
                 await my_chat_member.bot.send_message(
                     chat_id=user_id,

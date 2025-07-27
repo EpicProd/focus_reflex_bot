@@ -17,7 +17,7 @@ from focus_reflex.keyboards.models import (
 @flags.use_database
 async def start_handler(message: types.Message, user: User):
     keyboard = InlineKeyboard(ButtonRow(
-        WebAppButton("Открыть настройки", "https://focus-reflex-test.neonteam.cc/")
+        WebAppButton("Открыть настройки", "https://focus-reflex.neonteam.cc/")
     ))
     await message.bot.set_my_commands([
         types.BotCommand(command="start", description="Перезапуск бота"),
@@ -106,7 +106,7 @@ async def reset_handler(message: types.Message, user: User, session: db.Session)
     user.enabled = True
     await session.commit()
     keyboard = InlineKeyboard(ButtonRow(
-        WebAppButton("Открыть настройки", "https://focus-reflex-test.neonteam.cc/")
+        WebAppButton("Открыть настройки", "https://focus-reflex.neonteam.cc/")
     ))
     return await message.reply(
         "<b>Вы сбросили все настройки.</b>\n\n"
