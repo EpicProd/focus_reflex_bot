@@ -69,6 +69,11 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
             
             # Проверяем, что пользователь является владельцем канала
             if channel_member.status != ChatMemberStatus.CREATOR:
+                await my_chat_member.bot.send_message(
+                    chat_id=user_id,
+                    text=f"❌ Вы не являетесь владельцем канала <b>{my_chat_member.chat.title}</b>.\n\n"
+                         f"Для привязки канала необходимо быть владельцем.",
+                )
                 return
             
             # Получаем или создаем пользователя в базе данных
