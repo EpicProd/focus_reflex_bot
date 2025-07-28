@@ -165,15 +165,19 @@ class SendQuestionsTask(BaseSchedulerTask):
                     else:
                         chat_id = int(user.linked_channel_id)
 
-                    # Отправляем каждый вопрос отдельным сообщением
-                    for question in questions_to_send:
+                    if len(questions_to_send) > 0:
+                        questions_formatted = "\n\n".join([f"<blockquote>{question}</blockquote>" for question in questions_to_send])
+
+                        # Отправляем каждый вопрос внутри одного сообщения
                         await bots[0].send_message(
                             chat_id=chat_id,
-                            text=str(question),
+                            text=f"{'<b>Вопрос на сегодня!</b>' if len(questions_to_send) == 1 else '<b>Вопросы на сегодня!</b>'}\n\n"
+                                f"{questions_formatted}",
                             disable_notification=bool(user.quiet)
                         )
-                    
-                    logger.info(f"[{user.user_id}] Sent {len(questions_to_send)} questions successfully")
+                        logger.info(f"[{user.user_id}] Sent {len(questions_to_send)} questions successfully")
+                    else:
+                        logger.info(f"[{user.user_id}] No questions to send")
                 except exceptions.TelegramAPIError as e:
                     logger.error(f"[{user.user_id}] Send failed: {e}")
                     continue
