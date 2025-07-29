@@ -41,7 +41,7 @@ class CheckLinkedChannelsTask(BaseSchedulerTask):
                     keyboard = InlineKeyboard(ButtonRow(
                         WebAppButton("Открыть настройки", "https://focus-reflex.neonteam.cc")
                     ), ButtonRow(
-                        CallbackButton("Закрыть", "сlose")
+                        CallbackButton("Закрыть", "close")
                     ))
                     await bots[0].send_message(user.user_id, "<b>⚠️Системное сообщение!</b>\n\n"
                                                "<blockquote>Бот зафиксировал попытку добавления на канал, но не получил информацию о канале\n\n"
