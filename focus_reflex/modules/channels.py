@@ -79,7 +79,7 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
                 await session.commit()
                 return
 
-            if not my_chat_member.new_chat_member.can_send_messages:
+            if not my_chat_member.new_chat_member.can_post_messages:
                 await my_chat_member.bot.send_message(
                     chat_id=user_id,
                     text=f"❌ Вы не выдали нужные права (на отправку сообщений) боту в канале <b>{my_chat_member.chat.title}</b>.\n\n"
