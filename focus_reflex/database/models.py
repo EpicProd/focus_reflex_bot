@@ -54,6 +54,7 @@ class User(BaseMixin, db.Base):
     user_id = Column(BigInteger, primary_key=True, unique=True)
     send_in_pm = Column(Boolean, nullable=False, server_default="true")
     linked_channel_id = Column(BigInteger, nullable=True)
+    tried_to_link_channel = Column(Boolean, nullable=False, server_default="false")
     questions = Column(MutableList.as_mutable(ARRAY(Text)), nullable=False, server_default='{}')
     next_q_idx = Column(Integer, nullable=False, server_default="0")
     order_mode = Column(Integer, nullable=False, server_default="1")

@@ -74,6 +74,21 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
                     text=f"❌ Вы не являетесь владельцем канала <b>{my_chat_member.chat.title}</b>.\n\n"
                          f"Для привязки канала необходимо быть владельцем.",
                 )
+                await my_chat_member.chat.leave()
+                user.tried_to_link_channel = False
+                await session.commit()
+                return
+
+            if not my_chat_member.new_chat_member.can_send_messages:
+                await my_chat_member.bot.send_message(
+                    chat_id=user_id,
+                    text=f"❌ Вы не выдали нужные права (на отправку сообщений) боту в канале <b>{my_chat_member.chat.title}</b>.\n\n"
+                         f"Для привязки канала необходимо выдать права на отправку сообщений.\n\n"
+                         f"Для повторной попытки необходимо добавить бота в канал снова.",
+                )
+                await my_chat_member.chat.leave()
+                user.tried_to_link_channel = False
+                await session.commit()
                 return
             
             # Получаем или создаем пользователя в базе данных
@@ -84,6 +99,7 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
             
             # Обновляем linked_channel_id
             user.linked_channel_id = channel_id
+            user.tried_to_link_channel = False
             await session.commit()
             
             # Отправляем уведомление в ЛС пользователю

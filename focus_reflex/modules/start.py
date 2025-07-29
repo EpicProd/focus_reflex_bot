@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import pytz
 from aiogram import F, flags, types
 from aiogram.filters.command import Command
+from aiogram.filters.callback_data import CallbackData
 from aiogram.enums import ChatType
 
 from focus_reflex import dp, db
@@ -115,3 +116,7 @@ async def reset_handler(message: types.Message, user: User, session: db.Session)
         "Чтобы изменить настройки – нажмите на кнопку ниже.",
         reply_markup=await keyboard.build()
     )
+
+@dp.callback_query(F.data == "close")
+async def close_handler(callback: types.CallbackQuery):
+    await callback.message.delete()

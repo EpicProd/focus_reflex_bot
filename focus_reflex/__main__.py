@@ -12,7 +12,7 @@ from focus_reflex import (
     scheduler,
 )
 from focus_reflex.core import BotCore
-from focus_reflex.daemons import SendQuestionsTask
+from focus_reflex.daemons import SendQuestionsTask, CheckLinkedChannelsTask
 
 logger.info(
     f"Using features: {', '.join([x.split('_', maxsplit=1)[1] for x, _ in features if x.startswith('use')])}"
@@ -27,5 +27,6 @@ if is_custom_server:
 core = BotCore(PROJECT_NAME, is_prod, dp, bots, loop, config, scheduler)
 
 core.add_scheduler_task(SendQuestionsTask())
+core.add_scheduler_task(CheckLinkedChannelsTask())
 
 core.start()
