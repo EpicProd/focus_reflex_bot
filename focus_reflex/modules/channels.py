@@ -67,6 +67,12 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
             # Получаем информацию о пользователе в канале
             channel_member = await my_chat_member.chat.get_member(user_id)
             
+            # Получаем или создаем пользователя в базе данных
+            try:
+                user = await database.get_user(user_id, session)
+            except Exception:
+                return
+
             # Проверяем, что пользователь является владельцем канала
             if channel_member.status != ChatMemberStatus.CREATOR:
                 await my_chat_member.bot.send_message(
@@ -89,12 +95,6 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
                 await my_chat_member.chat.leave()
                 user.tried_to_link_channel = False
                 await session.commit()
-                return
-            
-            # Получаем или создаем пользователя в базе данных
-            try:
-                user = await database.get_user(user_id, session)
-            except Exception:
                 return
             
             # Обновляем linked_channel_id
