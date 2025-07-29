@@ -1,5 +1,6 @@
 from aiogram import types
 from aiogram.enums import ChatMemberStatus, ChatType
+from loguru import logger
 from sqlalchemy import select
 
 from focus_reflex import db, dp
@@ -46,9 +47,9 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
                         reply_markup=await keyboard.build()
                     )
                 except Exception as e:
-                    print(f"Failed to send notification to user {user.user_id}: {e}")
+                    logger.error(f"Failed to send notification to user {user.user_id}: {e}")
             except Exception as e:
-                print(f"Failed to process channel unlink: {e}")
+                logger.error(f"Failed to process channel unlink: {e}")
             return
         
         # Обработка добавления бота в канал
@@ -75,10 +76,14 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
 
             # Проверяем, что пользователь является владельцем канала
             if channel_member.status != ChatMemberStatus.CREATOR:
+                keyboard = InlineKeyboard(ButtonRow(
+                    WebAppButton("Открыть настройки", "https://focus-reflex.neonteam.cc/")
+                ))
                 await my_chat_member.bot.send_message(
                     chat_id=user_id,
                     text=f"❌ Вы не являетесь владельцем канала <b>{my_chat_member.chat.title}</b>.\n\n"
                          f"Для привязки канала необходимо быть владельцем.",
+                    reply_markup=await keyboard.build()
                 )
                 await my_chat_member.chat.leave()
                 user.tried_to_link_channel = False
@@ -86,11 +91,15 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
                 return
 
             if not my_chat_member.new_chat_member.can_post_messages:
+                keyboard = InlineKeyboard(ButtonRow(
+                    WebAppButton("Открыть настройки", "https://focus-reflex.neonteam.cc/")
+                ))
                 await my_chat_member.bot.send_message(
                     chat_id=user_id,
                     text=f"❌ Вы не выдали нужные права (на отправку сообщений) боту в канале <b>{my_chat_member.chat.title}</b>.\n\n"
                          f"Для привязки канала необходимо выдать права на отправку сообщений.\n\n"
                          f"Для повторной попытки необходимо добавить бота в канал снова.",
+                    reply_markup=await keyboard.build()
                 )
                 await my_chat_member.chat.leave()
                 user.tried_to_link_channel = False
@@ -117,7 +126,7 @@ async def bot_added_to_channel_handler(my_chat_member: types.ChatMemberUpdated):
             except Exception as e:
                 # Если не удается отправить сообщение в ЛС (например, пользователь заблокировал бота)
                 # Логируем ошибку, но не падаем
-                print(f"Failed to send notification to user {user_id}: {e}")
+                logger.error(f"Failed to send notification to user {user_id}: {e}")
                 
         except Exception as e:
-            print(f"Error processing bot addition to channel: {e}")
+            logger.error(f"Error processing bot addition to channel: {e}")
